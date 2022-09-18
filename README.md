@@ -1,1 +1,1 @@
-This is an activity manager base code which supports creation and list of activities
+Center Platform for all the changes
