@@ -1,12 +1,15 @@
+from re import I
 from rest_framework.response import Response
-from rest_framework import status 
+from rest_framework import status, permissions
 from rest_framework.decorators import api_view
 from rest_framework.views import APIView
 from rest_framework import mixins, generics
 from rest_framework.parsers import JSONParser
 from django.http import JsonResponse, Http404
+from django.contrib.auth.models import User
 from activity.models import Activity
-from activity.serializers import ActivitySerializer
+from activity.serializers import ActivitySerializer, UserSerializer
+from activity.permissions import IsOwnerOrReadOnly
 
 #######################################################################
 
@@ -77,3 +80,17 @@ class ActivityListCreateGenericAPIView(generics.ListCreateAPIView):
     '''
     queryset=Activity.objects.all()
     serializer_class = ActivitySerializer
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly]
+
+    def perform_create(self, serializer):
+        serializer.save(owner=self.request.user)
+
+#######################################################################
+
+class UserList(generics.ListAPIView):
+    '''
+    This is an implementation of 
+    user list using generic api view
+    '''
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
