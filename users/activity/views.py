@@ -80,7 +80,4 @@ class ActivityListCreateGenericAPIView(generics.ListCreateAPIView):
     queryset=Activity.objects.all()
     serializer_class = ActivitySerializer
 
-    def perform_create(self, serializer):
-        serializer.save(owner=self.request.user)
-
 #######################################################################
