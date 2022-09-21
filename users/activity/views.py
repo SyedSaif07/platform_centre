@@ -9,6 +9,7 @@ from django.http import JsonResponse, Http404
 from django.contrib.auth.models import User
 from activity.models import Activity
 from activity.serializers import ActivitySerializer
+from rest_framework.permissions import IsAuthenticated 
 
 #######################################################################
 
@@ -77,6 +78,7 @@ class ActivityListCreateGenericAPIView(generics.ListCreateAPIView):
     This is an implementation of 
     activity manager using generic api view
     '''
+    permission_classes = [IsAuthenticated,]
     queryset=Activity.objects.all()
     serializer_class = ActivitySerializer
 
