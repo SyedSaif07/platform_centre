@@ -10,7 +10,9 @@ from django.contrib.auth.models import User
 from activity.models import Activity
 from activity.serializers import ActivitySerializer
 from rest_framework.permissions import IsAuthenticated 
-
+import logging
+# Get an instance of a logger
+logger = logging.getLogger(__name__)
 #######################################################################
 
 @api_view(['GET', 'POST'])
@@ -78,6 +80,7 @@ class ActivityListCreateGenericAPIView(generics.ListCreateAPIView):
     This is an implementation of 
     activity manager using generic api view
     '''
+    logger.info("Have a great day")
     permission_classes = [IsAuthenticated,]
     queryset=Activity.objects.all()
     serializer_class = ActivitySerializer
