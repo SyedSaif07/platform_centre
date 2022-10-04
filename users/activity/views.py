@@ -81,7 +81,7 @@ class ActivityListCreateGenericAPIView(generics.ListCreateAPIView):
     activity manager using generic api view
     '''
     logger.info("Have a great day")
-    permission_classes = [IsAuthenticated,]
+    # permission_classes = [IsAuthenticated,]
     queryset=Activity.objects.all()
     serializer_class = ActivitySerializer
 
